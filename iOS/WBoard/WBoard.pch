@@ -1,0 +1,37 @@
+//
+//  WBoard.pch
+//  Meeting
+//
+//  Created by king on 2017/2/10.
+//  Copyright © 2017年 BossKing10086. All rights reserved.
+//
+
+#ifndef WBoard_pch
+#define WBoard_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef __OBJC__
+    #ifdef DEBUG
+        #define WLog(...) NSLog(@"%s %@", __func__, [NSString stringWithFormat:__VA_ARGS__])
+    #else
+        #define WLog(...)
+    #endif
+    #import "NSString+K.h"
+    #import "NSArray+K.h"
+    #import "HUDUtil.h"
+    #import "BaseNavController.h"
+    #import <CloudroomVideoSDK_IOS/CloudroomVideoSDK_IOS.h>
+
+    #define weakify(o) __weak __typeof(o) wSelf = o;
+    #define strongify(wSelf) __strong __typeof(wSelf) sSelf = wSelf;
+    #define UIColorFromRGBA(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
+    #define UIColorFromHexRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+    #define MAS_SHORTHAND
+    #define isIPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
+#define APPTYPE  @"房间"
+#endif
+
+#endif /* WBoard_pch */
