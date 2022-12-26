@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#fff">
+
+    <ImageView
+        android:id="@+id/ivPen"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="27dp"
+        android:src="@mipmap/style_pen"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivRect"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:src="@mipmap/style_rect"
+        app:layout_constraintLeft_toRightOf="@+id/ivPen"
+        app:layout_constraintTop_toTopOf="@+id/ivPen" />
+
+    <ImageView
+        android:id="@+id/ivCircle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:src="@mipmap/style_circle"
+        app:layout_constraintLeft_toRightOf="@+id/ivRect"
+        app:layout_constraintTop_toTopOf="@+id/ivPen" />
+
+    <ImageView
+        android:id="@+id/ivLine"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:src="@mipmap/style_line"
+        app:layout_constraintLeft_toRightOf="@+id/ivCircle"
+        app:layout_constraintTop_toTopOf="@+id/ivPen" />
+
+    <ImageView
+        android:id="@+id/ivArrow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="26dp"
+        android:src="@mipmap/style_arrow"
+        app:layout_constraintLeft_toLeftOf="@+id/ivPen"
+        app:layout_constraintTop_toBottomOf="@+id/ivPen" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,263 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:textColor="#666"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:id="@+id/llTitle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="onViewClick">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:gravity="center"
+                android:layout_width="150dp"
+                android:singleLine="true"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:textColor="#333"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@mipmap/wb_select" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvExit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:onClick="onViewClick"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="离开"
+            android:textColor="#FF3535"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleBar">
+
+        <com.cloudroom.cloudroomvideosdk.BoardView
+            android:id="@+id/boardview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/toolbarContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#fff"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleBar">
+
+        <RadioGroup
+            android:id="@+id/rgToolbar"
+            android:paddingTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/btnPitch"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_pitch"
+                android:onClick="onToolbarClick" />
+
+            <RadioButton
+                android:id="@+id/btnPen"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:button="@null"
+                android:drawableTop="@mipmap/style_pen"
+                android:gravity="center"
+                android:onClick="onToolbarClick"
+                android:paddingTop="5dp" />
+
+            <RadioButton
+                android:id="@+id/btnPenStyle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:button="@null"
+                android:drawableTop="@drawable/element_color_red_checked"
+                android:onClick="onToolbarClick" />
+
+            <RadioButton
+                android:id="@+id/btnText"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_text"
+                android:onClick="onToolbarClick" />
+
+            <RadioButton
+                android:id="@+id/btnEraser"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_eraser"
+                android:onClick="onToolbarClick" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rgToolbar2"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/btnRevoke"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:button="@null"
+                android:clickable="false"
+                android:drawableTop="@mipmap/revoke_gray"
+                android:onClick="onToolbarClick" />
+
+            <RadioButton
+                android:id="@+id/btnRecover"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:button="@null"
+                android:clickable="false"
+                android:drawableTop="@mipmap/recover_gray"
+                android:onClick="onToolbarClick" />
+
+            <RadioButton
+                android:id="@+id/btnEmpty"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:button="@null"
+                android:drawableTop="@mipmap/clear_black"
+                android:onClick="onToolbarClick" />
+
+            <RadioButton
+                android:id="@+id/btnMove"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_move"
+                android:onClick="onToolbarClick" />
+
+            <RadioButton
+                android:id="@+id/btnImg"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_img"
+                android:onClick="onToolbarClick"
+                android:visibility="gone" />
+
+            <RadioButton
+                android:id="@+id/btnSave"
+                android:visibility="gone"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:button="@null"
+                android:drawableTop="@mipmap/save_black"
+                android:onClick="onToolbarClick" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <LinearLayout
+            android:id="@+id/llNewWb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#3981FC"
+            android:gravity="center"
+            android:onClick="onViewClick"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@mipmap/wb" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="新建白板"
+                android:textColor="#fff"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvDebug"
+            android:layout_marginLeft="13dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="8dp"
+            android:onClick="onViewClick"
+            android:text="调试"
+            android:background="#AAB7CD"
+            android:textColor="#fff"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="base_color">#41AB91</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="background_color">#FFFFFF</color>
+    <color name="titlebar_text_color">#FFFFFA</color>
+    <color name="titlebar_text_pressed_color">#38ABFA</color>
+    <color name="board_option_bar_bg">#EFEFEF</color>
+    <color name="blue">#FF0000FF</color>
+    <color name="green">#FF008000</color>
+    <color name="yellow">#FFFFFF00</color>
+    <color name="orange">#FFFFA500</color>
+    <color name="red">#FFFF0000</color>
+</resources>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="12dp"
+        android:text="粗细"
+        android:textColor="#333"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivSize1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="13dp"
+        android:src="@mipmap/pen_size1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSize" />
+
+    <ImageView
+        android:id="@+id/ivSize2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="13dp"
+        android:src="@mipmap/pen_size2"
+        app:layout_constraintLeft_toRightOf="@+id/ivSize1"
+        app:layout_constraintTop_toBottomOf="@+id/tvSize" />
+
+    <ImageView
+        android:id="@+id/ivSize3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="13dp"
+        android:src="@mipmap/pen_size3"
+        app:layout_constraintLeft_toRightOf="@+id/ivSize2"
+        app:layout_constraintTop_toBottomOf="@+id/tvSize" />
+
+    <ImageView
+        android:id="@+id/ivSize4"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="13dp"
+        android:src="@mipmap/pen_size4"
+        app:layout_constraintLeft_toRightOf="@+id/ivSize3"
+        app:layout_constraintTop_toBottomOf="@+id/tvSize" />
+
+    <TextView
+        android:id="@+id/tvColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="颜色"
+        android:textColor="#333"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@+id/tvSize"
+        app:layout_constraintTop_toBottomOf="@+id/ivSize4" />
+
+    <ImageView
+        android:id="@+id/ivGray"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="11dp"
+        android:padding="5dp"
+        android:src="@drawable/element_color_gray_normal"
+        app:layout_constraintLeft_toLeftOf="@+id/ivSize1"
+        app:layout_constraintTop_toBottomOf="@+id/tvColor" />
+
+    <ImageView
+        android:id="@+id/ivBlack"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:padding="5dp"
+        android:src="@drawable/element_color_black_normal"
+        app:layout_constraintLeft_toRightOf="@+id/ivGray"
+        app:layout_constraintTop_toTopOf="@+id/ivGray" />
+
+    <ImageView
+        android:id="@+id/ivRed"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:padding="5dp"
+        android:src="@drawable/element_color_red_normal"
+        app:layout_constraintLeft_toRightOf="@+id/ivBlack"
+        app:layout_constraintTop_toTopOf="@+id/ivBlack" />
+
+    <ImageView
+        android:id="@+id/ivOrange"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:padding="5dp"
+        android:src="@drawable/element_color_orange_normal"
+        app:layout_constraintLeft_toRightOf="@+id/ivRed"
+        app:layout_constraintTop_toTopOf="@+id/ivRed" />
+
+    <ImageView
+        android:id="@+id/ivYellow"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:padding="5dp"
+        android:src="@drawable/element_color_yellow_normal"
+        app:layout_constraintLeft_toRightOf="@+id/ivOrange"
+        app:layout_constraintTop_toTopOf="@+id/ivOrange" />
+
+    <ImageView
+        android:id="@+id/ivGreen"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="7dp"
+        android:padding="5dp"
+        android:src="@drawable/element_color_green_normal"
+        app:layout_constraintLeft_toLeftOf="@+id/ivGray"
+        app:layout_constraintTop_toBottomOf="@+id/ivGray" />
+
+    <ImageView
+        android:id="@+id/ivBlue"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:padding="5dp"
+        android:src="@drawable/element_color_blue_normal"
+        app:layout_constraintLeft_toLeftOf="@+id/ivBlack"
+        app:layout_constraintTop_toTopOf="@+id/ivGreen" />
+
+    <ImageView
+        android:id="@+id/ivDeepBlue"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:padding="5dp"
+        android:src="@drawable/element_color_deep_blue_normal"
+        app:layout_constraintLeft_toLeftOf="@+id/ivRed"
+        app:layout_constraintTop_toTopOf="@+id/ivBlue" />
+
+    <ImageView
+        android:id="@+id/ivDeepPurple"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:padding="5dp"
+        android:src="@drawable/element_color_deep_purple_normal"
+        app:layout_constraintLeft_toLeftOf="@+id/ivOrange"
+        app:layout_constraintTop_toTopOf="@+id/ivDeepBlue" />
+
+    <ImageView
+        android:id="@+id/ivPurple"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:padding="5dp"
+        android:src="@drawable/element_color_purple_normal"
+        app:layout_constraintLeft_toLeftOf="@+id/ivYellow"
+        app:layout_constraintTop_toTopOf="@+id/ivDeepPurple" />
+</androidx.constraintlayout.widget.ConstraintLayout>
