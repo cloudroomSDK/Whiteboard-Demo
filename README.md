@@ -17,8 +17,8 @@
 
 项目位置|平台|语言|SDK
 ---|---|---|---
-[/Android](./Android)|Android|Java|[云屋RTC Android SDK](https://sdk.cloudroom.com/sdkdoc/Android/)
-[/iOS](./iOS)|iOS|Objective-C|[云屋RTC iOS SDK](https://sdk.cloudroom.com/sdkdoc/iOS/)
+[/Android](./Android)|Android|Java|[云屋RTC Android SDK](https://docs.cloudroom.com/whiteboard/document/intro/introduce?platform=Android)
+[/iOS](./iOS)|iOS|Objective-C|[云屋RTC iOS SDK](https://docs.cloudroom.com/whiteboard/document/intro/introduce?platform=iOS)
 [/Web](./Web)|Web|JS|[云屋RTC Web SDK](https://sdk.cloudroom.com/sdkdoc/H5/)
 
 ## 联系我们
