@@ -19,7 +19,7 @@
 #import "WhiteBoardViewAttrController.h"
 #import "BoardInfo+ExInfo.h"
 
-#define KMAX_WHITEBOARD_COUNT 5
+const NSInteger KMAX_WHITEBOARD_COUNT = 10;
 
 @interface MeetingController () <CloudroomVideoMeetingCallBack,CloudroomVideoMgrCallBack, BKBrushViewDelegate, CLBoardViewCallBack, UIImagePickerControllerDelegate>
 
@@ -31,6 +31,7 @@
 @property (assign,nonatomic) NSInteger currrentPage;  //白板当前页
 @property (weak, nonatomic) IBOutlet UIButton *createButton;
 @property (weak, nonatomic) IBOutlet UILabel *whiteBoardTitleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *recordButton;
 
 @property (weak, nonatomic) IBOutlet UIView *graphicsView;
 @property (weak, nonatomic) IBOutlet BKBrushButton *penButton;
@@ -70,6 +71,7 @@
 @property (nonatomic, strong) NSMutableArray<BoardInfo *> *boardList;
 @property (nonatomic, copy) NSString *currentWB;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, CLBoardViewAttr *> *wbBoardViewAttrDict;
+@property (nonatomic, copy) NSString *mixerID;
 
 @end
 
@@ -130,7 +132,7 @@
 - (IBAction)trashBtnDidClick:(id)sender {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示:" message:@"确定要清除所有内容吗" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self.drawerView clearAllPage];
+        [self.drawerView clearCurPage];
     }];
     [alertController addAction:doneAction];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -293,7 +295,7 @@
 - (IBAction)createNewWhiteBoard:(id)sender {
     NSUInteger count = _boardList.count;
     if (count >= KMAX_WHITEBOARD_COUNT) {
-        [HUDUtil hudShow:@"最多同时新建5个白板!" delay:1 animated:YES];
+        [HUDUtil hudShow:[NSString stringWithFormat:@"最多同时新建%ld个白板!", KMAX_WHITEBOARD_COUNT] delay:1 animated:YES];
         return;
     }
     
@@ -310,7 +312,7 @@
     [exInfoDict setValue:name forKey:@"name"];
     NSString *exInfo = [exInfoDict mj_JSONString];
     
-    [[CloudroomVideoMeeting shareInstance] createWhiteBoard:1280 h:720 pageCount:1 pageMode:CLPageModeFullPage exInfo:exInfo];
+    [[CloudroomVideoMeeting shareInstance] createWhiteBoard:720 h:1280 pageCount:3 pageMode:CLPageModeMutilPage exInfo:exInfo];
 }
 
 - (IBAction)showWhiteBoardConfigAction:(id)sender {
@@ -346,6 +348,41 @@
     
     if (!_brushToolView.isHidden) {
         _brushToolView.hidden = YES;
+    }
+}
+- (IBAction)recordAction:(UIButton *)sender {
+    
+    NSString *fileName = [NSString stringWithFormat:@"%@_iOS_wBoard_%d.mp4", [self.class getFileNameString], _meetInfo.ID];
+    NSString *svrPathName = [NSString stringWithFormat:@"/%@/%@", [self.class getSvrDirString], fileName];
+    NSString *mixerCfg = [NSString stringWithFormat:@"{\
+        \"mode\": 0,\
+        \"videoFileCfg\": {\
+            \"svrPathName\": \"%@\",\
+            \"vWidth\": 1280,\
+            \"vHeight\": 720,\
+            \"vFps\": 15,\
+            \"layoutConfig\": [\
+                {\
+                    \"type\": 6,\
+                    \"top\": 0,\
+                    \"left\": 0,\
+                    \"width\": 1280,\
+                    \"height\": 720,\
+                    \"keepAspectRatio\": 1\
+                }\
+            ]\
+        }\
+    }", svrPathName];
+    
+    if  (sender.isSelected && _mixerID) {
+        [[CloudroomVideoMeeting shareInstance] destroyCloudMixer:_mixerID];
+        return;
+    }
+    
+    NSString *mixerID = [[CloudroomVideoMeeting shareInstance] createCloudMixer:mixerCfg];
+    if (mixerID) {
+        _mixerID = mixerID;
+        sender.selected = YES;
     }
 }
 
@@ -412,6 +449,60 @@
     [self showReEnter:@"房间掉线!"];
 }
 
+#pragma mark - 云端录制回调
+
+- (void)createCloudMixerFailed:(NSString *)mixerID err:(CRVIDEOSDK_ERR_DEF)err {
+    if (![_mixerID isEqualToString:mixerID]) return;
+    
+    _recordButton.selected = NO;
+    _mixerID = nil;
+    if (err == CRVIDEOSDK_SEVICE_NOTENABLED) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您没有录制权限" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alertController addAction:doneAction];
+        [self presentViewController:alertController animated:NO completion:nil];
+    }
+    
+    
+}
+- (void)cloudMixerStateChanged:(NSString *)operatorID mixerID:(NSString *)mixerID state:(MIXER_STATE)state exParam:(NSString *)exParam {
+    if ([_mixerID isEqualToString:mixerID]) {
+        if (state == NO_RECORD || state ==  STOPPING) {
+            _mixerID = nil;
+            _recordButton.selected = NO;
+        }
+    }
+}
+- (void)cloudMixerInfoChanged:(NSString *)mixerID {
+    
+}
+- (void)cloudMixerOutputInfoChanged:(NSString *)mixerID jsonStr:(NSString *)jsonStr {
+    NSDictionary *dic = jsonStr.mj_JSONObject;
+    NSLog(@"cloudMixerOutputInfoChanged:%@", jsonStr);
+    int state = [dic[@"state"] intValue];
+    int errCode = [dic[@"errCode"] intValue];
+    
+    NSLog(@"cloudMixerOutputInfoChanged state:%d, errCode:%d", state, errCode);
+    /*
+    5 上传成功
+    6 上传失败
+    */
+    
+    if (errCode == 1 && state == 6) {
+        NSString *fileName = dic[@"fileName"];
+        if ([fileName rangeOfString:@"iOS_wBoard"].location == NSNotFound) return;
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"上传录像失败，空间不足" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alertController addAction:doneAction];
+        [self presentViewController:alertController animated:NO completion:nil];
+    }
+}
+
 #pragma mark - 白板View回调
 - (void)notifyBoardCurPageChanged:(CLBoardView *)boardView curPage:(NSInteger)curPage operatorID:(NSString *)operatorID {
     // 当前滚动到第几页：接近中间点的页
@@ -439,6 +530,9 @@
     NSString *myUserID = [[CloudroomVideoMeeting shareInstance] getMyUserID];
     if ([myUserID isEqualToString:operatorID])
     [HUDUtil hudShow:@"创建白板成功" delay:0.75 animated:YES];
+    
+    if (_pencilButton.isSelected == NO)
+    [self operationButtonDidClicked:self.pencilButton]; // 设置默认选中绘制状态
     
     if (_toolView.isHidden) _toolView.hidden = NO;
     if (_topTtitleView.isHidden) _topTtitleView.hidden = NO;
@@ -543,6 +637,34 @@
     return uuid;
 }
 
++ (NSString *)getSvrDirString {
+    // 获取当前时间
+    NSDate *currentDate = [NSDate date];
+
+    // 创建日期格式化器
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+
+    // 将日期转换为指定格式的字符串
+    NSString *formattedDateString = [dateFormatter stringFromDate:currentDate];
+    
+    return formattedDateString;
+}
+
++ (NSString *)getFileNameString {
+    // 获取当前时间
+    NSDate *currentDate = [NSDate date];
+
+    // 创建日期格式化器
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd_HH-mm-ss"];
+
+    // 将日期转换为指定格式的字符串
+    NSString *formattedDateString = [dateFormatter stringFromDate:currentDate];
+    
+    return formattedDateString;
+}
+
 - (CLBoardViewAttr *)defaultBoardViewAttr {
     CLBoardViewAttr *attr = [[CLBoardViewAttr alloc] init];
     attr.readOnly = NO;
@@ -602,6 +724,7 @@
     
     
     [self.drawerView setBoardViewAttr:[self defaultBoardViewAttr]];
+    [self.drawerView setViewScaleRange:1.0 max:5.0];
     
     _topTtitleView.hidden = YES;
     _toolView.hidden = YES;
@@ -609,6 +732,9 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenToolViews:)];
     [self.view addGestureRecognizer:tap];
     
+//    self.view.backgroundColor = [UIColor brownColor];
+//    self.drawerView.backgroundColor = [UIColor clearColor];
+//    [self.drawerView setPageBackgroundColor:[UIColor clearColor]];
 }
 /**
  设置属性
@@ -636,6 +762,27 @@
 /* 入会成功 */
 - (void)enterMeetingSuccess {
 //    [[CloudroomVideoMeeting shareInstance] setSpeakerOut:YES];
+    if (_createRoom) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self createNewWhiteBoard:nil];
+        });
+    }
+    
+    // 检查云端录制状态
+    CloudroomVideoMeeting *cloudroomVideoMeeting = [CloudroomVideoMeeting shareInstance];
+    NSString *info = [cloudroomVideoMeeting getAllCloudMixerInfo];
+    NSArray *cloudMixerInfo = [info mj_JSONObject];
+    for (NSDictionary *item in cloudMixerInfo) {
+        NSString *owner = [item valueForKey:@"owner"];
+        if ([owner isEqualToString:[cloudroomVideoMeeting getMyUserID]]) {
+            _mixerID = [item valueForKey:@"ID"];
+            MIXER_STATE state = [[item valueForKey:@"state"] intValue];
+            if (state == RECORDING) {
+                self.recordButton.selected = YES;
+            }
+            break;
+        }
+    }
 }
 
 /**

@@ -83,7 +83,7 @@
 // 创建房间成功回调
 - (void)createMeetingSuccess:(MeetInfo *)meetInfo cookie:(NSString *)cookie {
     [HUDUtil hudHiddenProgress:YES];
-    [self _jumpToMeetingWithMeetInfo:meetInfo];
+    [self _jumpToMeetingWithMeetInfo:meetInfo createRoom:YES];
 }
 
 // 创建房间失败回调
@@ -156,7 +156,7 @@
     CRSDKHelper *meetingHelper = [CRSDKHelper shareInstance];
     [meetingHelper readInfo];
     
-    NSString *nickname = [NSString stringWithFormat:@"user_%04zd", [self _randomNumFrom:1000 to:9999]];
+    NSString *nickname = [NSString stringWithFormat:@"iOS_%04zd", [self _randomNumFrom:1000 to:9999]];
     
     // 云屋SDK登陆账号,实际开发中,请联系云屋工作人员获取
     NSString *account = meetingHelper.account;
@@ -252,16 +252,17 @@
     MeetInfo *meetInfo = [[MeetInfo alloc] init];
     [meetInfo setID:[inputText intValue]];
     
-    [self _jumpToMeetingWithMeetInfo:meetInfo];
+    [self _jumpToMeetingWithMeetInfo:meetInfo createRoom:NO];
 }
 
 /**
  跳转到"房间"界面
  @param meetInfo 房间信息
  */
-- (void)_jumpToMeetingWithMeetInfo:(MeetInfo *)meetInfo {
+- (void)_jumpToMeetingWithMeetInfo:(MeetInfo *)meetInfo createRoom:(BOOL)createRoom {
     UIStoryboard *meeting = [UIStoryboard storyboardWithName:@"Meeting" bundle:nil];
     MeetingController *meetingVC = [meeting instantiateViewControllerWithIdentifier:@"MeetingController"];
+    meetingVC.createRoom = createRoom;
     [meetingVC setMeetInfo:meetInfo];
     
     WLog(@"meetID:%d", meetInfo.ID);

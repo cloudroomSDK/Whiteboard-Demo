@@ -40,6 +40,7 @@ static NSString *const cellID = @"WhiteBoardListCell";
     
     self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     [self.tableView registerNib:[UINib nibWithNibName:@"WhiteBoardListCell" bundle:nil] forCellReuseIdentifier:cellID];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(whiteBoardListDidChange:) name:KWhiteBoardListDidChangeNotification object:nil];
 }

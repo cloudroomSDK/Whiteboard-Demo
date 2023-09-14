@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dEk-Lx-4o8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dEk-Lx-4o8">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EYR-ja-Bpl" customClass="CLBoardView">
-                                <rect key="frame" x="0.0" y="91" width="375" height="682"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="679"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GsE-OA-k9O" userLabel="baseView">
@@ -75,11 +75,11 @@
                                             <constraint firstAttribute="height" constant="230" id="Ll7-3e-65r"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zEo-17-GOF">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16.75" translatesAutoresizingMaskIntoConstraints="NO" id="zEo-17-GOF">
                                         <rect key="frame" x="5" y="240" width="44" height="230"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="95l-r7-sUH" customClass="BKBrushButton">
-                                                <rect key="frame" x="0.0" y="0.0" width="44" height="42"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="44" height="45"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="icon_undo"/>
                                                 <state key="selected" image="icon_undo_high"/>
@@ -88,7 +88,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbe-cx-ajh" customClass="BKBrushButton">
-                                                <rect key="frame" x="0.0" y="47" width="44" height="42"/>
+                                                <rect key="frame" x="0.0" y="61.666666666666629" width="44" height="45"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="icon_redo"/>
                                                 <state key="selected" image="icon_redo_high"/>
@@ -97,7 +97,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Hz-FY-n5b" customClass="BKBrushButton">
-                                                <rect key="frame" x="0.0" y="94" width="44" height="42"/>
+                                                <rect key="frame" x="0.0" y="123.33333333333331" width="44" height="45"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="icon_delete"/>
                                                 <state key="selected" image="icon_delete_high"/>
@@ -106,7 +106,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZdI-xJ-P4u" customClass="BKBrushButton">
-                                                <rect key="frame" x="0.0" y="140.99999999999994" width="44" height="42"/>
+                                                <rect key="frame" x="0.0" y="184.99999999999994" width="44" height="45"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="icon_hands"/>
                                                 <state key="selected" image="icon_hands_high"/>
@@ -114,8 +114,8 @@
                                                     <action selector="operationButtonDidClicked:" destination="dEk-Lx-4o8" eventType="touchUpInside" id="xe2-th-Sji"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4i6-MC-T5q" customClass="BKBrushButton">
-                                                <rect key="frame" x="0.0" y="187.99999999999994" width="44" height="42"/>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4i6-MC-T5q" customClass="BKBrushButton">
+                                                <rect key="frame" x="0.0" y="229.99999999999994" width="44" height="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="icon_save"/>
                                                 <state key="selected" image="icon_save_high"/>
@@ -194,7 +194,7 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3tU-fM-aoy">
-                                <rect key="frame" x="0.0" y="47" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="房间ID：000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lxl-rG-mro">
                                         <rect key="frame" x="12" y="13" width="88" height="18"/>
@@ -203,7 +203,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aKW-e4-wka">
-                                        <rect key="frame" x="190.66666666666663" y="0.0" width="87.333333333333343" height="44"/>
+                                        <rect key="frame" x="190.66666666666666" y="0.0" width="87.333333333333343" height="44"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_menu" translatesAutoresizingMaskIntoConstraints="NO" id="7zX-YC-Ovw">
                                                 <rect key="frame" x="67.333333333333343" y="16" width="12" height="12"/>
@@ -500,21 +500,33 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ypl-D3-NuO">
-                                <rect key="frame" x="87.666666666666686" y="733" width="200" height="40"/>
+                                <rect key="frame" x="48.666666666666657" y="733" width="278" height="40"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfs-qD-bm6" userLabel="新建白板">
-                                        <rect key="frame" x="0.0" y="0.0" width="131" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfs-qD-bm6" userLabel="新建白板">
+                                        <rect key="frame" x="0.0" y="0.0" width="108" height="40"/>
                                         <color key="backgroundColor" red="0.22352941176470587" green="0.50588235294117645" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <inset key="contentEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="2" maxX="5" maxY="0.0"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="  新建白板" image="icon_create"/>
                                         <connections>
                                             <action selector="createNewWhiteBoard:" destination="dEk-Lx-4o8" eventType="touchUpInside" id="WEw-ky-xb3"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9yW-Yk-NwY" userLabel="新建白板">
+                                        <rect key="frame" x="113" y="0.0" width="96" height="40"/>
+                                        <color key="backgroundColor" red="0.22352941179999999" green="0.50588235290000005" blue="0.98823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="2" maxX="5" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="录制" image="icon_start_record"/>
+                                        <state key="selected" title="结束录制" image="icon_stop_record"/>
+                                        <connections>
+                                            <action selector="recordAction:" destination="dEk-Lx-4o8" eventType="touchUpInside" id="tYI-kT-wR9"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yCC-iu-DHN">
-                                        <rect key="frame" x="136" y="0.0" width="64" height="40"/>
+                                        <rect key="frame" x="214.00000000000003" y="0.0" width="63.999999999999972" height="40"/>
                                         <color key="backgroundColor" red="0.66666666666666663" green="0.71764705882352942" blue="0.80392156862745101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="64" id="HzL-mM-XZp"/>
@@ -531,7 +543,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="fHZ-8N-cgO"/>
-                                    <constraint firstAttribute="width" constant="200" id="gji-Lo-Qq0"/>
+                                    <constraint firstAttribute="width" constant="278" id="gji-Lo-Qq0"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -549,11 +561,33 @@
                             <constraint firstItem="eaC-m9-eag" firstAttribute="bottom" secondItem="EYR-ja-Bpl" secondAttribute="bottom" constant="5" id="cYr-Ao-IT2"/>
                             <constraint firstItem="eaC-m9-eag" firstAttribute="bottom" secondItem="Ypl-D3-NuO" secondAttribute="bottom" constant="5" id="csP-ef-zmt"/>
                             <constraint firstItem="eaC-m9-eag" firstAttribute="trailing" secondItem="3tU-fM-aoy" secondAttribute="trailing" id="f4o-fM-Exp"/>
+                            <constraint firstItem="Ypl-D3-NuO" firstAttribute="trailing" secondItem="GsE-OA-k9O" secondAttribute="trailing" id="ihU-5n-0r2"/>
                             <constraint firstItem="3tU-fM-aoy" firstAttribute="leading" secondItem="eaC-m9-eag" secondAttribute="leading" id="sDN-HV-pgZ"/>
                             <constraint firstItem="EYR-ja-Bpl" firstAttribute="trailing" secondItem="eaC-m9-eag" secondAttribute="trailing" id="sIp-tI-K95"/>
                             <constraint firstItem="eaC-m9-eag" firstAttribute="trailing" secondItem="GsE-OA-k9O" secondAttribute="trailing" constant="15" id="u27-A6-fQ1"/>
                             <constraint firstItem="GsE-OA-k9O" firstAttribute="leading" secondItem="KLY-nF-AS3" secondAttribute="trailing" constant="13" id="uhz-MI-rZE"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="2fn-3Y-CYQ"/>
+                                <exclude reference="ihU-5n-0r2"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="ihU-5n-0r2"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="ihU-5n-0r2"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="2fn-3Y-CYQ"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="arrowButton" destination="y80-Qo-XuS" id="7fY-WF-hxJ"/>
@@ -579,6 +613,7 @@
                         <outlet property="meetNumLabel" destination="Lxl-rG-mro" id="eNr-Eg-3a1"/>
                         <outlet property="penButton" destination="wb9-YW-xX3" id="CIn-cQ-Zjf"/>
                         <outlet property="pencilButton" destination="a73-FF-dWT" id="3Xl-xX-92E"/>
+                        <outlet property="recordButton" destination="9yW-Yk-NwY" id="2NB-rP-bOC"/>
                         <outlet property="redoButton" destination="kbe-cx-ajh" id="aYf-Rk-FAj"/>
                         <outlet property="saveButton" destination="4i6-MC-T5q" id="VyE-ve-hxc"/>
                         <outlet property="smallBrushBtn" destination="jqJ-S5-xU5" id="sqs-bg-OwI"/>
@@ -598,7 +633,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="912.61682242990651" y="-594.16846652267827"/>
+            <point key="canvasLocation" x="898" y="-606"/>
         </scene>
         <!--White Board List Controller-->
         <scene sceneID="pUm-Ds-qF6">
@@ -609,7 +644,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HVG-5R-bpO">
-                                <rect key="frame" x="112.66666666666663" y="47" width="262.33333333333337" height="731"/>
+                                <rect key="frame" x="112.66666666666663" y="50" width="262.33333333333337" height="728"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="白板列表" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZHW-l2-RGd">
                                         <rect key="frame" x="98.333333333333314" y="8" width="65.666666666666686" height="44"/>
@@ -628,7 +663,7 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MR1-yV-Ph1">
-                                        <rect key="frame" x="0.0" y="52.666666666666686" width="262.33333333333331" height="678.33333333333326"/>
+                                        <rect key="frame" x="0.0" y="52.666666666666686" width="262.33333333333331" height="675.33333333333326"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <connections>
                                             <outlet property="dataSource" destination="S1c-ea-AB3" id="O0M-Tq-jBH"/>
@@ -650,7 +685,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mYv-eG-B2c">
-                                <rect key="frame" x="0.0" y="47" width="112.66666666666667" height="731"/>
+                                <rect key="frame" x="0.0" y="50" width="112.66666666666667" height="728"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="SU1-A5-9il" appends="YES" id="TIQ-G3-pWe"/>
@@ -722,7 +757,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ra0-Cc-QZR">
-                                <rect key="frame" x="112.66666666666663" y="47" width="262.33333333333337" height="731"/>
+                                <rect key="frame" x="112.66666666666663" y="50" width="262.33333333333337" height="728"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="3AK-xg-UUK">
                                         <rect key="frame" x="15.000000000000014" y="47.333333333333314" width="232.33333333333337" height="191"/>
@@ -922,6 +957,8 @@
         <image name="icon_redo_high" width="40" height="40"/>
         <image name="icon_save" width="40" height="40"/>
         <image name="icon_save_high" width="40" height="40"/>
+        <image name="icon_start_record" width="18" height="18.666666030883789"/>
+        <image name="icon_stop_record" width="20" height="20"/>
         <image name="icon_text" width="40" height="40"/>
         <image name="icon_text_high" width="40" height="40"/>
         <image name="icon_thick_1" width="30" height="30"/>

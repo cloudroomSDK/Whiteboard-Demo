@@ -13,5 +13,5 @@
 @interface MeetingController : BaseController
 
 @property (nonatomic, strong) MeetInfo *meetInfo;
-
+@property (nonatomic, assign) BOOL createRoom;
 @end
