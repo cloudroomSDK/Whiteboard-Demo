@@ -172,11 +172,13 @@
     
     if ([NSString stringCheckEmptyOrNil:account]) {
         [HUDUtil hudShow:@"账号不能为空!" delay:3 animated:YES];
+        [self _handleSettings];
         return;
     }
     
     if ([NSString stringCheckEmptyOrNil:pswd]) {
         [HUDUtil hudShow:@"密码不能为空!" delay:3 animated:YES];
+        [self _handleSettings];
         return;
     }
     

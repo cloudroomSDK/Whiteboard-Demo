@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const MeetingHelper_server;
+extern NSString * const MeetingHelper_account;
+extern NSString * const MeetingHelper_pswd;
+extern NSString * const MeetingHelper_nickname;
+
 @interface CRSDKHelper : NSObject
 
 @property (nonatomic, copy, readonly) NSString *server; /**< 服务器地址 */

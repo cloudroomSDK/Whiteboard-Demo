@@ -133,6 +133,7 @@
 		160627B92826645900FF195D /* WhiteBoardListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WhiteBoardListCell.xib; sourceTree = "<group>"; };
 		160FEC38282DF3D8006735C0 /* UIImage+Shot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Shot.m"; sourceTree = "<group>"; };
 		160FEC39282DF3D8006735C0 /* UIImage+Shot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Shot.h"; sourceTree = "<group>"; };
+		164A714E2B15D1EA00DAD72B /* AppConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		16D06EDD28FD00E400A9B215 /* BoardInfo+ExInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BoardInfo+ExInfo.h"; sourceTree = "<group>"; };
 		16D06EDE28FD00E400A9B215 /* BoardInfo+ExInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BoardInfo+ExInfo.m"; sourceTree = "<group>"; };
 		16E8066728F2A6C500CD1BB4 /* WhiteBoardViewAttrController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WhiteBoardViewAttrController.h; sourceTree = "<group>"; };
@@ -615,6 +616,7 @@
 				C21770151E4D55F000B79F5C /* PreMeeting */,
 				C2E06BAD1E4C8C52000D8718 /* Meeting */,
 				C2E06BAC1E4C8C48000D8718 /* Other */,
+				164A714E2B15D1EA00DAD72B /* AppConfig.h */,
 				C2E06B7B1E4C8C14000D8718 /* AppDelegate.h */,
 				C2E06B7C1E4C8C14000D8718 /* AppDelegate.m */,
 				C2176FBF1E4D4ABE00B79F5C /* WBoard.pch */,

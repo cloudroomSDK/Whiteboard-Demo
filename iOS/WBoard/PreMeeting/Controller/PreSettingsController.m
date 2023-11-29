@@ -12,6 +12,10 @@
 #import "CRSDKHelper.h"
 #import "PMRoundTextField.h"
 #import "NSString+K.h"
+#import "AppConfig.h"
+
+NSString *const kAppIDDefaultShow = @"默认appID";
+NSString *const kAppIDPlaceholder = @"请配置appID";
 
 @interface PreSettingsController ()
 
@@ -63,9 +67,7 @@
         [self _handleReset];
     }
     else {
-        _bottomView.serverTextField.text = meetingHelper.server;
-        _bottomView.userTextField.text = meetingHelper.account;
-        _bottomView.paswdTextField.text = meetingHelper.pswd;
+        [self reloadConfigView];
     }
 }
 
@@ -73,7 +75,7 @@
     NSString *server = _bottomView.serverTextField.text;
     NSString *account = _bottomView.userTextField.text;
     NSString *pswd = _bottomView.paswdTextField.text;
-    
+        
     if ([NSString stringCheckEmptyOrNil:server]) {
         [HUDUtil hudShow:@"服务器地址不能为空!" delay:3 animated:YES];
         return;
@@ -89,6 +91,14 @@
         return;
     }
     
+    // 不保存默认展示
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *accountCache = [userDefaults stringForKey:MeetingHelper_account];
+    if (accountCache.length <= 0 && [account isEqualToString:kAppIDDefaultShow]) {
+        account = nil;
+        pswd = nil;
+    }
+    
     CRSDKHelper *meetingHelper = [CRSDKHelper shareInstance];
     [meetingHelper writeAccount:account pswd:pswd server:server];
 }
@@ -97,8 +107,20 @@
     CRSDKHelper *meetingHelper = [CRSDKHelper shareInstance];
     [meetingHelper resetInfo];
     
+    [self reloadConfigView];
+}
+
+- (void)reloadConfigView {
+    CRSDKHelper *meetingHelper = [CRSDKHelper shareInstance];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *account = [userDefaults stringForKey:MeetingHelper_account];
+    if (account.length <= 0 && [KDefaultAppID isEqualToString:meetingHelper.account] && KDefaultAppID.length > 0) {
+        _bottomView.userTextField.text = kAppIDDefaultShow;
+    } else {
+        _bottomView.userTextField.text = meetingHelper.account;
+    }
     _bottomView.serverTextField.text = meetingHelper.server;
-    _bottomView.userTextField.text = meetingHelper.account;
     _bottomView.paswdTextField.text = meetingHelper.pswd;
 }
 
