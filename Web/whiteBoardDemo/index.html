@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <script src="../static/js/vue@2_dist.js"></script> -->
+    <script src="../static/js/vue@2_dev.js"></script>
+    <link rel="stylesheet" href="../static/lib/element-ui/lib/theme-chalk/index.css" />
+    <script src="../static/lib/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="./css/index.css" />
+    <title>互动白板Demo</title>
+  </head>
+
+  <body>
+    <div class="wb" id="app">
+      <div class="login-container" v-if="mainPage=='login'">
+        <div class="login-main" v-if="loginSetHide">
+          <div class="login-main-header">
+            <div class="title">WhiteBoard Demo</div>
+            <div class="tips">创建一个新房间或输入房间号加入已有房间</div>
+          </div>
+          <div class="login-main-form">
+            <div class="form-input">
+              <div class="input-item form-item">
+                <label for="roomIDInput">房间号：</label>
+                <input type="text" v-model="roomData.roomID" id="roomIDInput" placeholder="请输入房间号" />
+              </div>
+              <div class="input-item form-item">
+                <label for="nicknameInput">昵&emsp;称：</label>
+                <input type="text" v-model="nicknameInput" id="nicknameInput" placeholder="请输入昵称" />
+              </div>
+            </div>
+            <div class="form-buttons">
+              <div class="form-btn form-item">
+                <button id="joinBtn" @click="clickEnterBtn()">进入房间</button>
+              </div>
+              <div class="form-cut-line">
+                <span class="line-left line"></span>
+                <span class="line-text">或者</span>
+                <span class="line-right line"></span>
+              </div>
+              <div class="form-btn form-item">
+                <button id="createdBtn" @click="clickCreateMeetBtn()">创建房间</button>
+              </div>
+            </div>
+          </div>
+          <div class="login-main-set">
+            <span class="login-set-btn" @click="loginSetHide=!loginSetHide">登录设置</span>
+          </div>
+        </div>
+        <div v-cloak class="login-set" v-else>
+          <div class="login-set-header">
+            <span class="return-icon" @click="loginSetHide=!loginSetHide"></span>
+            <div class="set-title">登录设置</div>
+          </div>
+          <div class="login-set-radio">
+            <div class="radio-list-item">
+              <span class="item-title">鉴权方式：</span>
+              <ul class="radio-list">
+                <li class="radio-item">
+                  <input type="radio" v-model="loginData.authType" value="1" id="appSecretRadio" />
+                  <label for="appSecretRadio">密码</label>
+                </li>
+                <li class="radio-item">
+                  <input type="radio" v-model="loginData.authType" value="2" id="tokenRadio" />
+                  <label for="tokenRadio">Token</label>
+                </li>
+                <li class="radio-item"></li>
+              </ul>
+            </div>
+          </div>
+          <div class="login-set-form">
+            <div class="form-item input-item">
+              <label for="serverAddr">服务器地址：</label>
+              <input type="text" v-model="loginData.server" id="serverAddrInput" placeholder="请输入服务器地址" />
+            </div>
+            <div class="form-item input-item" v-if="loginData.authType==1">
+              <label for="appIDInput">AppID：</label>
+              <input type="text" v-model="loginData.appID" id="appIDInput" placeholder="请输入AppID" />
+            </div>
+            <div class="form-item input-item" v-if="loginData.authType==1">
+              <label for="appSecretInput">AppSecret：</label>
+              <input type="text" v-model="loginData.appSecret" id="appSecretInput" placeholder="请输入AppSecret" />
+            </div>
+            <div class="form-item input-item" v-if="loginData.authType==2">
+              <label for="tokenInput">Token：</label>
+              <input type="text" v-model="loginData.token" id="tokenInput" placeholder="请输入Token" />
+            </div>
+            <div class="form-item input-item">
+              <label for="thirdAuthInput">第三方鉴权：</label>
+              <input type="text" v-model="loginData.userAuthCode" id="thirdAuthInput" placeholder="未启用第三方鉴权则无需填写" />
+            </div>
+            <div class="form-item btn-item">
+              <button id="resetBtn" @click="resetLoginData()">重置</button>
+            </div>
+            <div class="form-item btn-item">
+              <button id="confirmBtn" @click="clickConfirmBtn()">确定</button>
+            </div>
+          </div>
+        </div>
+        <div class="login-footer">
+          <div class="sdk-ver">
+            <span>SDKVer：</span>
+            <span>{{sdkver}}</span>
+          </div>
+        </div>
+      </div>
+      <div v-cloak class="board-container" v-else>
+        <div class="board-header">
+          <div class="room-info">
+            <div class="roomID">房间号：{{roomData.roomID}}</div>
+            <div class="copy-btn" @click="copyRoomID()"></div>
+            <input type="text" id="copyInput" style="position: absolute; right: 0; top: 0; opacity: 0; z-index: -999; width: 1px; height: 1px" />
+          </div>
+          <div class="center-select">
+            <el-select v-model="curBoardID" placeholder="请选择" @change="changeCurBoard(curBoardID)">
+              <el-option v-for="item in boardList" :key="item.boardID" :label="item.name" :value="item.boardID"> </el-option>
+            </el-select>
+          </div>
+          <div class="user-info">用户ID：{{loginData.nickname}}</div>
+          <el-button class="left-room-btn" type="danger" size="small" @click="clickLeftBtn()">离开房间</el-button>
+          <div class="record" :class="{recording: cloudMixers.length > 0}" @click="clickRecordBtn()">
+            <div class="ready box">
+              <span class="icon"></span>
+              <span class="text">{{recordStateText}}</span>
+            </div>
+            <div class="recording box">
+              <span class="icon"></span>
+              <span class="text">录制中...</span>
+            </div>
+            <div class="recording-hover box">
+              <span class="icon"></span>
+              <span class="text">结束录制</span>
+            </div>
+          </div>
+        </div>
+        <!-- <video id="backVideo" src="./1.mp4" autoplay controls muted loop></video> -->
+        <div class="board-main">
+          <div class="board-box" id="boardViewBox"></div>
+          <div class="tool-box" @click.stop>
+            <div class="tool-list shadow">
+              <span class="tool-item arrow" :class="{active: curView.toolType == 8}" @click="setToolType(8)"></span>
+              <span
+                class="tool-item pen"
+                :class="[{active: !!showToolType || (1 <= curView.toolType && curView.toolType <= 5) || (11 <= curView.toolType && curView.toolType <= 13)},
+                toolTypeButtonClass]"
+                @click="clickToolTypeButton()"
+              ></span>
+              <span class="tool-item color" :class="[{active: !!showColorBox}, `_${curView.toolAttr.color.replace('#', '')}`]" @click="toggleColorBox()"></span>
+              <span class="tool-item font" :class="{active: curView.toolType == 6}" @click="clickFontButton()"></span>
+              <span class="tool-item eraser" :class="{active: curView.toolType == 9}" @click="setToolType(9)"></span>
+              <span class="tool-item undo" :class="{disabled: !curView.undo}" @click="undo()"></span>
+              <span class="tool-item redo" :class="{disabled: !curView.redo}" @click="redo()"></span>
+              <span class="tool-item clean" @click="clean()"></span>
+              <span class="tool-item hands" :class="{active: curView.toolType == 10}" @click="setToolType(10)"></span>
+              <!-- <span class="tool-item pic"></span>
+              <span class="tool-item save"></span> -->
+            </div>
+            <div class="pen-type-box shadow" v-show="showToolType">
+              <div class="type-item pencil" :class="{active: curView.toolType == 1}" @click="chooseToolType(1)"></div>
+              <div class="type-item squareLine" :class="{active: curView.toolType == 3}" @click="chooseToolType(3)"></div>
+              <div class="type-item roundLine" :class="{active: curView.toolType == 4}" @click="chooseToolType(4)"></div>
+              <div class="type-item straightLine" :class="{active: curView.toolType == 2}" @click="chooseToolType(2)"></div>
+              <div class="type-item arrows" :class="{active: curView.toolType == 5}" @click="chooseToolType(5)"></div>
+              <!-- <div class="type-item squareFill" :class="{active: curView.toolType == 11}" @click="chooseToolType(11)"></div> -->
+              <!-- <div class="type-item roundFill" :class="{active: curView.toolType == 12}" @click="chooseToolType(12)"></div> -->
+              <!-- <div class="type-item pentacleLine" :class="{active: curView.toolType == 13}" @click="chooseToolType(13)"></div> -->
+            </div>
+            <div class="color-width-box shadow" v-show="showColorBox">
+              <div class="type-text">粗细</div>
+              <div class="line-width">
+                <div class="width-item width1" :class="{active: curView.toolAttr.lineWidth == 1}" @click="choosedColorOrWidth({lineWidth:1})"></div>
+                <div class="width-item width2" :class="{active: curView.toolAttr.lineWidth == 2}" @click="choosedColorOrWidth({lineWidth:2})"></div>
+                <div class="width-item width4" :class="{active: curView.toolAttr.lineWidth == 4}" @click="choosedColorOrWidth({lineWidth:4})"></div>
+                <div class="width-item width6" :class="{active: curView.toolAttr.lineWidth == 6}" @click="choosedColorOrWidth({lineWidth:6})"></div>
+              </div>
+              <div class="type-text">颜色</div>
+              <div class="line-color">
+                <div class="color-item _F0F0F0" :class="{active: curView.toolAttr.color == '#F0F0F0'}" @click="choosedColorOrWidth({color:'#F0F0F0'})"></div>
+                <div class="color-item _7B7B7B" :class="{active: curView.toolAttr.color == '#7B7B7B'}" @click="choosedColorOrWidth({color:'#7B7B7B'})"></div>
+                <div class="color-item _FF0000" :class="{active: curView.toolAttr.color == '#FF0000'}" @click="choosedColorOrWidth({color:'#FF0000'})"></div>
+                <div class="color-item _FF6B00" :class="{active: curView.toolAttr.color == '#FF6B00'}" @click="choosedColorOrWidth({color:'#FF6B00'})"></div>
+                <div class="color-item _FFB800" :class="{active: curView.toolAttr.color == '#FFB800'}" @click="choosedColorOrWidth({color:'#FFB800'})"></div>
+                <div class="color-item _68DB00" :class="{active: curView.toolAttr.color == '#68DB00'}" @click="choosedColorOrWidth({color:'#68DB00'})"></div>
+                <div class="color-item _00DDFF" :class="{active: curView.toolAttr.color == '#00DDFF'}" @click="choosedColorOrWidth({color:'#00DDFF'})"></div>
+                <div class="color-item _007FFF" :class="{active: curView.toolAttr.color == '#007FFF'}" @click="choosedColorOrWidth({color:'#007FFF'})"></div>
+                <div class="color-item _BD00FF" :class="{active: curView.toolAttr.color == '#BD00FF'}" @click="choosedColorOrWidth({color:'#BD00FF'})"></div>
+                <div class="color-item _FF00F4" :class="{active: curView.toolAttr.color == '#FF00F4'}" @click="choosedColorOrWidth({color:'#FF00F4'})"></div>
+              </div>
+            </div>
+            <div class="font-set-box shadow" v-show="showFontSetBox">
+              <div class="font-bold font" :class="{active: curView.toolAttr.fontWeight == 'bold'}" @click="setFont('weight')"></div>
+              <div class="font-underline font" :class="{active: curView.toolAttr.fontUnderLine == true}" @click="setFont('underLine')"></div>
+              <div class="font-italic font" :class="{active: curView.toolAttr.fontStyle == 'italic'}" @click="setFont('italic')"></div>
+              <!-- <div class="font-color" :class="[`_${curView.toolAttr.color.replace('#', '')}`]"></div> -->
+              <div class="font-size"><el-input-number v-model="curView.toolAttr.fontSize" controls-position="right" @change="setFont('size')" :min="12" :max="100"></el-input-number></div>
+            </div>
+          </div>
+          <div class="float-box" @click.stop>
+            <div class="scale">
+              <span class="zoom-out icon" :class="{disabled: curView.scale <= 20}" @click="setScale('decrease')"></span>
+              <div class="percent-input"><input type="text" v-model="curView.scale" @change="setScale()" /><span class="percent">%</span></div>
+              <span class="zoom-in icon" :class="{disabled: curView.scale >= 500}" @click="setScale('increase')"></span>
+            </div>
+            <div class="page">
+              <span class="last-page-btn icon" @click="lastPage()"></span>
+              <span class="page-text">{{curView.totalPage == 0 ? 0 :curView.curPage + 1}}/{{curView.totalPage}}</span>
+              <span class="next-page-btn icon" @click="nextpage()"></span>
+            </div>
+            <div class="setting" @click="showSettingBox=!showSettingBox"></div>
+          </div>
+          <div class="setting-box" v-show="showSettingBox" @click.stop>
+            <div class="title">
+              属性设置
+              <span class="close-btn" @click="showSettingBox = false"></span>
+            </div>
+            <div class="main">
+              <div class="item">
+                <span class="content">是否只读模式</span>
+                <el-switch v-model="curView.attr.readOnly" @change="viewAttrChange()" active-color="#3981fc" inactive-color="#bbbbbb"> </el-switch>
+              </div>
+              <div class="item">
+                <span class="content">同步发送翻页</span>
+                <el-switch v-model="curView.attr.asyncPage" @change="viewAttrChange()" active-color="#3981fc" inactive-color="#bbbbbb"> </el-switch>
+              </div>
+              <div class="item">
+                <span class="content">同步跟随翻页</span>
+                <el-switch v-model="curView.attr.followPage" @change="viewAttrChange()" active-color="#3981fc" inactive-color="#bbbbbb"> </el-switch>
+              </div>
+              <div class="item">
+                <span class="content">同步发送缩放</span>
+                <el-switch v-model="curView.attr.asyncScale" @change="viewAttrChange()" active-color="#3981fc" inactive-color="#bbbbbb"> </el-switch>
+              </div>
+              <div class="item">
+                <span class="content">同步跟随缩放</span>
+                <el-switch v-model="curView.attr.followScale" @change="viewAttrChange()" active-color="#3981fc" inactive-color="#bbbbbb"> </el-switch>
+              </div>
+            </div>
+          </div>
+          <div class="delete-btn-box btn-box" @click="clickDeleteBtn()">
+            <span class="icon"></span>
+            <span class="text">删除白板</span>
+          </div>
+          <div class="new-btn-box btn-box" @click="createBoard()">
+            <span class="icon"></span>
+            <span class="text">新建白板</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  <script src="../SDK/RTCSDKV2.min.js?v=e0be"></script></body>
+  <script src="../static/js/md5.js"></script>
+  <script src="./js/imgbase64.js"></script>
+  <script src="./js/index.js"></script>
+</html>
