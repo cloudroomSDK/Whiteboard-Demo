@@ -47,13 +47,6 @@
 - (void)_setupForVideoCallSDK
 {
     CRSDKHelper *meetingHelper = [CRSDKHelper shareInstance];
-    [meetingHelper readInfo];
-    
-    if ([NSString stringCheckEmptyOrNil:meetingHelper.account] ||
-        [NSString stringCheckEmptyOrNil:meetingHelper.pswd] ||
-        [NSString stringCheckEmptyOrNil:meetingHelper.server]) {
-        [meetingHelper resetInfo];
-    }
     
     // FIXME:WARNING: QApplication was not created in the main() thread.QObject::connect: No such slot MeetRecordImpl::slot_SetScreenShare(bool)
     SdkInitDat *sdkInitData = [[SdkInitDat alloc] init];

@@ -59,7 +59,6 @@ NSString *const kAppIDPlaceholder = @"请配置appID";
     }];
     
     CRSDKHelper *meetingHelper = [CRSDKHelper shareInstance];
-    [meetingHelper readInfo];
     
     if ([NSString stringCheckEmptyOrNil:meetingHelper.account] ||
         [NSString stringCheckEmptyOrNil:meetingHelper.pswd] ||

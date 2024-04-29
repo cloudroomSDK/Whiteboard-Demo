@@ -72,8 +72,9 @@
         _enterBtn.select = YES;
     }
     
-#ifdef DEBUG
-//    _inputTextField.text = @"70167140";
-#endif
+    NSString *meetID = [[NSUserDefaults standardUserDefaults] objectForKey:@"KLastEnterMeetingID"];
+    if (meetID.length == 8) {
+        _inputTextField.text = meetID;
+    }
 }
 @end

@@ -154,7 +154,6 @@
 /* 登录 */
 - (void)_handleLogin {
     CRSDKHelper *meetingHelper = [CRSDKHelper shareInstance];
-    [meetingHelper readInfo];
     
     NSString *nickname = [NSString stringWithFormat:@"iOS_%04zd", [self _randomNumFrom:1000 to:9999]];
     

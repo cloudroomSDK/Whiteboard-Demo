@@ -783,6 +783,8 @@ const NSInteger KMAX_WHITEBOARD_COUNT = 10;
             break;
         }
     }
+    
+    [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%d", _meetInfo.ID] forKey:@"KLastEnterMeetingID"];
 }
 
 /**
