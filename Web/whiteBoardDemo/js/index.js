@@ -38,13 +38,13 @@ var app = new Vue({
     defaultToolAttr: {
       lineWidth: 2, // 线宽
       // lineStyle: 1, // 线型
-      color: '#007FFF', // 颜色
+      color: 'rgba(0,127,255,1)', // 颜色
       fontSize: 20, // 文字字体大小
       // fontFamily: 'sans-serif', // 文字字体
       fontWeight: 'normal', // 普通normal、加粗bold
       fontStyle: 'normal', // 是否斜体 普通normal、斜体italic
       fontUnderLine: false, // 文字是否下划线
-      fontBackGroundColor: 'rgba(210, 221, 234, 1)', // 文字背景色
+      fontBackGroundColor: 'rgba(210,221,234,1)', // 文字背景色
     },
     curView: {
       boardView: null, // 白板view
@@ -64,6 +64,44 @@ var app = new Vue({
     showSettingBox: false, // 是否显示设置面板
     cloudMixers: [], // 云端录制混图器
     recordStateText: '录制',
+  },
+  computed: {
+    colorClass() {
+      let returnVal = '';
+      switch (this.curView.toolAttr.color) {
+        case 'rgba(240,240,240,1)':
+          returnVal = '_F0F0F0 ';
+          break;
+        case 'rgba(123,123,123,1)':
+          returnVal = '_7B7B7B ';
+          break;
+        case 'rgba(236,80,80,1)':
+          returnVal = '_FF0000 ';
+          break;
+        case 'rgba(255,107,0,1)':
+          returnVal = '_FF6B00 ';
+          break;
+        case 'rgba(255,184,0,1)':
+          returnVal = '_FFB800 ';
+          break;
+        case 'rgba(104,219,0,1)':
+          returnVal = '_68DB00 ';
+          break;
+        case 'rgba(18,223,255,1)':
+          returnVal = '_00DDFF ';
+          break;
+        case 'rgba(0,127,255,1)':
+          returnVal = '_007FFF ';
+          break;
+        case 'rgba(189,0,255,1)':
+          returnVal = '_BD00FF ';
+          break;
+        case 'rgba(255,0,244,1)':
+          returnVal = '_FF00F4 ';
+          break;
+      }
+      return returnVal;
+    },
   },
   watch: {
     curBoardID() {
@@ -596,8 +634,7 @@ var app = new Vue({
       });
       // SDK接口（白板view）：设置白板view中心容器dom的css样式
       boardView.setContainerStyle({
-        // border: '1px solid #333',
-        backgroundColor: '#e6e6e6',
+        backgroundColor: 'rgba(230,230,230,1)',
       });
       // =====>>> 注意要先注册回调，再设置白板ID，否则有些回调会错过
       // SDK接口（白板view）：设置view对应显示的白板ID和属性
