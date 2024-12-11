@@ -53,9 +53,9 @@
     // TODO:必须指定日志文件路径,才能产生日志文件,并能够上传 added by king 201711061904
     [sdkInitData setSdkDatSavePath:[PathUtil searchPathInCacheDir:@"CRVideoSDK"]];
     [sdkInitData setShowSDKLogConsole:YES];
-    [sdkInitData setNoCall:YES];
-    [sdkInitData setNoQueue:YES];
-    [sdkInitData setNoMediaDatToSvr:NO];
+    [sdkInitData.params setValue:@"1" forKey:@"noCall"];
+    [sdkInitData.params setValue:@"1" forKey:@"noQueue"];
+    [sdkInitData.params setValue:@"0" forKey:@"noMediaDatToSvr"];
     sdkInitData.datEncType = @"0";
     [sdkInitData.params setValue:@"0" forKey:@"VerifyHttpsCert"];
     [sdkInitData.params setValue:@"0" forKey:@"HttpDataEncrypt"];
