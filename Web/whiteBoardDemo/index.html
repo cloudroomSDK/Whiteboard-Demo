@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
+  <title>互动白板Demo</title>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- <script src="../static/js/vue@2_dist.js"></script> -->
-  <script src="../static/js/vue@2_dev.js"></script>
+  <script type="text/javascript" src="../static/js/vconsole.min.js"></script>
+  <script>
+    if (navigator.userAgent.includes('mobi') || navigator.userAgent.includes('Mobi')) {
+      new VConsole();
+    }
+  </script>
+  <script src="../static/js/vue@2_dist.js"></script>
+  <!-- <script src="../static/js/vue@2_dev.js"></script> -->
   <link rel="stylesheet" href="../static/lib/element-ui/lib/theme-chalk/index.css" />
   <script src="../static/lib/element-ui/lib/index.js"></script>
   <link rel="stylesheet" href="./css/index.css" />
-  <title>互动白板Demo</title>
 </head>
-
 <body>
   <div class="wb" id="app">
     <div class="login-container" v-if="mainPage=='login'">
@@ -33,17 +37,13 @@
             </div>
           </div>
           <div class="form-buttons">
-            <div class="form-btn form-item">
-              <button id="joinBtn" @click="clickEnterBtn()">进入房间</button>
-            </div>
+            <div class="form-btn form-item" id="joinBtn" @click="clickEnterBtn()">进入房间</div>
             <div class="form-cut-line">
               <span class="line-left line"></span>
               <span class="line-text">或者</span>
               <span class="line-right line"></span>
             </div>
-            <div class="form-btn form-item">
-              <button id="createdBtn" @click="clickCreateMeetBtn()">创建房间</button>
-            </div>
+            <div class="form-btn form-item" id="createdBtn" @click="clickCreateMeetBtn()">创建房间</div>
           </div>
         </div>
         <div class="login-main-set">
@@ -67,7 +67,6 @@
                 <input type="radio" v-model="loginData.authType" value="2" id="tokenRadio" />
                 <label for="tokenRadio">Token</label>
               </li>
-              <li class="radio-item"></li>
             </ul>
           </div>
         </div>
@@ -92,12 +91,8 @@
             <label for="thirdAuthInput">第三方鉴权：</label>
             <input type="text" v-model="loginData.userAuthCode" id="thirdAuthInput" placeholder="未启用第三方鉴权则无需填写" />
           </div>
-          <div class="form-item btn-item">
-            <button id="resetBtn" @click="resetLoginData()">重置</button>
-          </div>
-          <div class="form-item btn-item">
-            <button id="confirmBtn" @click="clickConfirmBtn()">确定</button>
-          </div>
+          <div class="form-item btn-item" id="resetBtn" @click="resetLoginData()">重置</div>
+          <div class="form-item btn-item" id="confirmBtn" @click="clickConfirmBtn()">确定</div>
         </div>
       </div>
       <div class="login-footer">
@@ -110,7 +105,7 @@
     <div v-cloak class="board-container" v-else>
       <div class="board-header">
         <div class="room-info">
-          <div class="roomID">房间号：{{roomData.roomID}}</div>
+          <div class="roomID"><span class="text">房间号：</span>{{roomData.roomID}}</div>
           <div class="copy-btn" @click="copyRoomID()"></div>
           <input type="text" id="copyInput" style="position: absolute; right: 0; top: 0; opacity: 0; z-index: -999; width: 1px; height: 1px" />
         </div>
@@ -195,17 +190,19 @@
           </div>
         </div>
         <div class="float-box" @click.stop>
-          <div class="scale">
-            <span class="zoom-out icon" :class="{disabled: curView.scale <= 20}" @click="setScale('decrease')"></span>
-            <div class="percent-input"><input type="text" v-model="curView.scale" @change="setScale()" /><span class="percent">%</span></div>
-            <span class="zoom-in icon" :class="{disabled: curView.scale >= 500}" @click="setScale('increase')"></span>
+          <div class="float-main">
+            <div class="scale">
+              <span class="zoom-out icon" :class="{disabled: curView.scale <= 20}" @click="setScale('decrease')"></span>
+              <div class="percent-input"><input type="text" v-model="curView.scale" @change="setScale()" /><span class="percent">%</span></div>
+              <span class="zoom-in icon" :class="{disabled: curView.scale >= 500}" @click="setScale('increase')"></span>
+            </div>
+            <div class="page">
+              <span class="last-page-btn icon" @click="lastPage()"></span>
+              <span class="page-text">{{curView.totalPage == 0 ? 0 :curView.curPage + 1}}/{{curView.totalPage}}</span>
+              <span class="next-page-btn icon" @click="nextpage()"></span>
+            </div>
+            <div class="setting" @click="showSettingBox=!showSettingBox"></div>
           </div>
-          <div class="page">
-            <span class="last-page-btn icon" @click="lastPage()"></span>
-            <span class="page-text">{{curView.totalPage == 0 ? 0 :curView.curPage + 1}}/{{curView.totalPage}}</span>
-            <span class="next-page-btn icon" @click="nextpage()"></span>
-          </div>
-          <div class="setting" @click="showSettingBox=!showSettingBox"></div>
         </div>
         <div class="setting-box" v-show="showSettingBox" @click.stop>
           <div class="title">
@@ -235,18 +232,20 @@
             </div>
           </div>
         </div>
-        <div class="delete-btn-box btn-box" @click="clickDeleteBtn()">
-          <span class="icon"></span>
-          <span class="text">删除白板</span>
-        </div>
-        <div class="new-btn-box btn-box" @click="createBoard()">
-          <span class="icon"></span>
-          <span class="text">新建白板</span>
+        <div class="board-ctrl">
+          <div class="delete-btn-box btn-box" @click="clickDeleteBtn()">
+            <span class="icon"></span>
+            <span class="text">删除白板</span>
+          </div>
+          <div class="new-btn-box btn-box" @click="createBoard()">
+            <span class="icon"></span>
+            <span class="text">新建白板</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-<script src="../SDK/RTCSDKV2.min.js?v=91c3"></script></body>
+<script src="../SDK/RTCSDKV2.min.js?v=3df4"></script></body>
 <script src="../static/js/md5.js"></script>
 <script src="./js/imgbase64.js"></script>
 <script src="./js/index.js"></script>

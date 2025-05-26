@@ -6,6 +6,7 @@ var app = new Vue({
     isLogin: false, // SDK是否已登录鉴权
     loginSetHide: true, // 是否显示登陆设置界面
     mainPage: 'login', // 主界面 login board
+    // mainPage: 'board', // 主界面 login board
     nicknameInput: '', // 登录界面昵称输入
     // SDK登陆鉴权相关参数
     loginData: {
@@ -267,7 +268,7 @@ var app = new Vue({
     window.addEventListener('unload', (e) => {
       if (this.isMeeting) {
         // SDK接口：退出房间
-        CRVideo_ExitMeeting();
+        CRVideo_ExitMeeting('refresh');
         // SDK接口：退出登录
         CRVideo_Logout();
         // 做一个耗时计算，让页面关的慢一点，确保离开房间的消息能发出去，这里触发方法，一定是在接口调用完之后再触发
@@ -299,9 +300,9 @@ var app = new Vue({
       this.loginData.server = storage.server ? storage.server : window.location.host;
       if (this.loginData.server.includes('127.0.0.1') || this.loginData.server.includes('localhost') || !this.loginData.server) this.loginData.server = `sdk.${window.__CRName}.com`;
       // 鉴权AppID
-      this.loginData.appID = storage.appID ? storage.appID : '默认appID';
+      this.loginData.appID = storage.appID ? storage.appID : '默认';
       // 鉴权AppSecret
-      this.loginData.appSecret = storage.appSecret ? storage.appSecret : '默认appSecret';
+      this.loginData.appSecret = storage.appSecret ? storage.appSecret : '默认';
       // 鉴权Token（鉴权方式为token鉴权）
       this.loginData.token = storage.token ? storage.token : '';
       // 第三方鉴权参数（未启用则为空）
@@ -313,8 +314,8 @@ var app = new Vue({
     resetLoginData() {
       this.loginData.authType = '1';
       this.loginData.server = `sdk.${window.__CRName}.com`;
-      this.loginData.appID = '默认appID';
-      this.loginData.appSecret = '默认appSecret';
+      this.loginData.appID = '默认';
+      this.loginData.appSecret = '默认';
       this.loginData.token = '';
       this.loginData.userAuthCode = '';
     },
@@ -353,9 +354,11 @@ var app = new Vue({
       return new Promise((resolve, reject) => {
         // SDK接口：设置SDK参数
         CRVideo_SetSDKParams({
-          // isUploadLog: false,
           isCallSer: false, // 不启用呼叫服务
           isWebRTC: false, // 不启用音视频服务
+          // svrTimeout: 120, // 与服务器通信超时时间 缺省为60s
+          // isUploadLog: false, // 是否上传日志
+          // securityEnhancement: true, //是否开启安全增强（会有跨域问题，需配置跨域响应头）
         });
         // H5SDK只需要初始化一次，结束后无需反初始化
         // SDK接口：初始化SDK
@@ -388,7 +391,14 @@ var app = new Vue({
         CRVideo_SetServerAddr(this.loginData.server);
         if (this.loginData.authType == '1') {
           // SDK接口：登陆SDK
-          CRVideo_Login(this.loginData.appID, this.loginData.appSecret == '默认appSecret' ? this.loginData.appSecret : md5(this.loginData.appSecret), this.loginData.nickname, this.loginData.userID, this.loginData.userAuthCode, cookie);
+          CRVideo_Login(
+            this.loginData.appID,
+            this.loginData.appSecret == '默认' ? this.loginData.appSecret : md5(this.loginData.appSecret),
+            this.loginData.nickname,
+            this.loginData.userID,
+            this.loginData.userAuthCode,
+            cookie
+          );
         } else {
           // SDK接口：登陆SDK（Token鉴权）
           CRVideo_LoginByToken(this.loginData.token, this.loginData.nickname, this.loginData.userID, this.loginData.userAuthCode, cookie);
@@ -526,7 +536,7 @@ var app = new Vue({
         })
         .catch(() => {
           // SDK接口：离开房间
-          window.CRVideo_ExitMeeting();
+          window.CRVideo_ExitMeeting('timeout');
           // SDK接口：退出登录
           window.CRVideo_Logout();
           this.isLogin = false;
@@ -685,8 +695,10 @@ var app = new Vue({
           type: 'warning',
           offset: 55,
         });
-      const width = 1280,
-        height = 720,
+
+      const documentWidth = document.documentElement.clientWidth;
+      const width = documentWidth > 1280 ? 1280 : documentWidth,
+        height = parseInt(document.querySelector('#boardViewBox').clientHeight),
         pageCount = 3,
         pageMode = 1;
       let boardIndex = 1,

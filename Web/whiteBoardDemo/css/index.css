@@ -19,6 +19,9 @@ body {
   color: #333;
 }
 .wb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 100%;
   background-image: url(../imgs/登录背景.png);
@@ -28,15 +31,19 @@ body {
 }
 .wb .login-container {
   position: absolute;
-  left: 50%;
-  top: 200px;
-  padding: 0 46px;
-  height: 594px;
-  width: 459px;
-  transform: translateX(-50%);
+  padding: 60px 50px 0;
+  height: 600px;
+  width: 460px;
   border-radius: 10px;
   box-sizing: border-box;
   background-color: #fff;
+}
+@media screen and (max-width: 700px) {
+  .wb .login-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
 }
 .wb .login-container button {
   height: 100%;
@@ -47,8 +54,6 @@ body {
   cursor: pointer;
 }
 .wb .login-container .login-main {
-  margin-top: 60px;
-  width: 364px;
   font-size: 16px;
 }
 .wb .login-container .login-main .login-main-header {
@@ -61,12 +66,22 @@ body {
   line-height: 32px;
   color: #3981fc;
 }
+@media screen and (max-width: 360px) {
+  .wb .login-container .login-main .login-main-header .title {
+    font-size: 24px;
+  }
+}
+@media screen and (max-width: 302px) {
+  .wb .login-container .login-main .login-main-header .title {
+    height: 60px;
+  }
+}
 .wb .login-container .login-main .login-main-header .tips {
   margin-top: 20px;
   padding-left: 4px;
   height: 14px;
   font-size: 14px;
-  line-height: 14px;
+  line-height: 18px;
 }
 .wb .login-container .login-main .login-main-form {
   margin-top: 38px;
@@ -80,34 +95,47 @@ body {
   overflow: hidden;
 }
 .wb .login-container .login-main .login-main-form .form-input .input-item {
+  display: flex;
   margin-bottom: 18px;
-  padding-left: 20px;
   font-size: 16px;
   border: 1px solid #d1d1d1;
 }
 .wb .login-container .login-main .login-main-form .form-input .input-item label {
+  padding-left: 10px;
+  width: 80px;
+  flex-shrink: 0;
   font-size: 16px;
   color: #999;
   user-select: none;
+  box-sizing: border-box;
 }
 .wb .login-container .login-main .login-main-form .form-input .input-item input {
+  min-width: 0;
+  flex: 1;
   border: none;
   outline: none;
   font-size: 16px;
 }
 .wb .login-container .login-main .login-main-form .form-buttons .form-btn {
+  display: flex;
+  justify-content: center;
   margin-bottom: 18px;
   border: 1px solid #3981fc;
   background-color: #3981fc;
 }
-.wb .login-container .login-main .login-main-form .form-buttons .form-btn button#joinBtn {
+.wb .login-container .login-main .login-main-form .form-buttons .form-btn#joinBtn {
   color: #fff;
   background-color: #3981fc;
 }
-.wb .login-container .login-main .login-main-form .form-buttons .form-btn button#createdBtn {
+.wb .login-container .login-main .login-main-form .form-buttons .form-btn#createdBtn {
+  background: none;
   color: #3981fc;
 }
 .wb .login-container .login-main .login-main-form .form-buttons .form-cut-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
   position: relative;
   margin-top: -18px;
   height: 60px;
@@ -115,26 +143,11 @@ body {
   user-select: none;
 }
 .wb .login-container .login-main .login-main-form .form-buttons .form-cut-line .line {
-  position: absolute;
-  width: 137px;
+  width: 40%;
   height: 1px;
   background: #DCDCDC;
 }
-.wb .login-container .login-main .login-main-form .form-buttons .form-cut-line .line.line-left {
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.wb .login-container .login-main .login-main-form .form-buttons .form-cut-line .line.line-right {
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
 .wb .login-container .login-main .login-main-form .form-buttons .form-cut-line .line-text {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
   color: #999;
 }
 .wb .login-container .login-main .login-main-set {
@@ -151,9 +164,7 @@ body {
   cursor: pointer;
 }
 .wb .login-container .login-footer {
-  position: absolute;
-  bottom: 10px;
-  width: 364px;
+  margin-top: 50px;
   height: 30px;
   line-height: 30px;
   text-align: center;
@@ -162,7 +173,7 @@ body {
   color: #999;
 }
 .wb .login-container .login-set {
-  width: 364px;
+  margin-top: -43px;
   font-size: 16px;
 }
 .wb .login-container .login-set .login-set-header {
@@ -188,6 +199,11 @@ body {
 .wb .login-container .login-set .login-set-radio {
   margin-bottom: 22px;
   user-select: none;
+}
+@media screen and (max-width: 271px) {
+  .wb .login-container .login-set .login-set-radio {
+    height: 120px;
+  }
 }
 .wb .login-container .login-set .login-set-radio .radio-list-item {
   height: 46px;
@@ -217,35 +233,41 @@ body {
   height: 50px;
   width: 100%;
   line-height: 50px;
-  box-sizing: border-box;
   border-radius: 5px;
   border: 1px solid #D1D1D1;
   overflow: hidden;
 }
 .wb .login-container .login-set .login-set-form .form-item.input-item {
-  padding-left: 28px;
+  display: flex;
+  padding-left: 10px;
   border: 1px solid #D1D1D1;
 }
 .wb .login-container .login-set .login-set-form .form-item.input-item label {
   display: inline-block;
+  flex-shrink: 0;
   width: 100px;
   color: #999;
   user-select: none;
 }
 .wb .login-container .login-set .login-set-form .form-item.input-item input {
-  width: 220px;
+  min-width: 0;
+  flex: 1;
   border: none;
   outline: none;
   font-size: 16px;
+  text-overflow: clip;
 }
 .wb .login-container .login-set .login-set-form .form-item.btn-item {
+  display: flex;
+  justify-content: center;
   border: 1px solid #3981fc;
   background-color: #3981fc;
 }
-.wb .login-container .login-set .login-set-form .form-item.btn-item button#resetBtn {
+.wb .login-container .login-set .login-set-form .form-item.btn-item#resetBtn {
+  background: none;
   color: #3981fc;
 }
-.wb .login-container .login-set .login-set-form .form-item.btn-item button#confirmBtn {
+.wb .login-container .login-set .login-set-form .form-item.btn-item#confirmBtn {
   color: #fff;
   background-color: #3981fc;
 }
@@ -256,8 +278,10 @@ body {
   user-select: none;
 }
 .wb .board-container .board-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  padding-left: 30px;
   height: 60px;
   line-height: 60px;
   background-color: #3981FC;
@@ -266,32 +290,48 @@ body {
   z-index: 3;
 }
 .wb .board-container .board-header .room-info {
-  position: relative;
-  float: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  left: 10px;
   width: 200px;
   height: 100%;
 }
-.wb .board-container .board-header .room-info .roomID {
-  float: left;
+@media screen and (max-width: 700px) {
+  .wb .board-container .board-header .room-info {
+    display: none;
+  }
 }
 .wb .board-container .board-header .room-info .copy-btn {
   position: relative;
   margin-left: 5px;
-  float: left;
-  top: 50%;
-  transform: translateY(-50%);
   width: 15px;
   height: 16px;
   background: url(../imgs/复制.svg) center center / 100% 100% no-repeat;
   cursor: pointer;
 }
+.wb .board-container .board-header .user-info {
+  position: absolute;
+  left: 200px;
+  margin-right: 110px;
+  font-size: 16px;
+}
+@media screen and (max-width: 1000px) {
+  .wb .board-container .board-header .user-info {
+    display: none;
+  }
+}
 .wb .board-container .board-header .center-select {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  margin: 0 auto;
   width: 200px;
   height: 100%;
+}
+@media screen and (max-width: 700px) {
+  .wb .board-container .board-header .center-select {
+    left: 20px;
+  }
 }
 .wb .board-container .board-header .center-select .el-select {
   float: left;
@@ -307,10 +347,16 @@ body {
   height: auto;
 }
 .wb .board-container .board-header .record {
-  float: right;
-  margin-right: 10px;
+  position: absolute;
+  right: 100px;
+  margin-right: 20px;
   width: 110px;
   height: 100%;
+}
+@media screen and (max-width: 700px) {
+  .wb .board-container .board-header .record {
+    display: none;
+  }
 }
 .wb .board-container .board-header .record .box {
   height: 100%;
@@ -368,16 +414,14 @@ body {
 .wb .board-container .board-header .record.recording:hover .recording-hover {
   display: block;
 }
-.wb .board-container .board-header .user-info {
-  float: right;
-  margin-right: 110px;
-  font-size: 16px;
-}
 .wb .board-container .board-header .left-room-btn {
   position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 30px;
+}
+@media screen and (max-width: 700px) {
+  .wb .board-container .board-header .left-room-btn {
+    right: 10px;
+  }
 }
 .wb .board-container #backVideo {
   position: absolute;
@@ -902,58 +946,78 @@ body {
   border-radius: 3px;
 }
 .wb .board-container .board-main .float-box {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 40px;
+  height: 50px;
+  width: 100%;
+  opacity: 0.8;
+}
+@media screen and (max-width: 700px) {
+  .wb .board-container .board-main .float-box {
+    justify-content: center;
+    bottom: 5px;
+    height: 30px;
+  }
+}
+.wb .board-container .board-main .float-box .float-main {
+  display: flex;
+  align-items: center;
   position: absolute;
   left: 45px;
-  bottom: 40px;
-  height: 42px;
+  height: 40px;
   width: 228px;
-  line-height: 42px;
+  line-height: 40px;
   font-size: 12px;
   box-shadow: 0 0 10px #ccc;
   border-radius: 2px;
   background-color: #fff;
   user-select: none;
 }
-.wb .board-container .board-main .float-box .scale {
+@media screen and (max-width: 700px) {
+  .wb .board-container .board-main .float-box .float-main {
+    height: 30px;
+    left: auto;
+    margin-left: -58px;
+  }
+}
+.wb .board-container .board-main .float-box .float-main .scale {
+  display: flex;
+  align-items: center;
   position: absolute;
   left: 0;
-  top: 50%;
-  transform: translateY(-50%);
   width: 114px;
   height: 20px;
   border-right: 1px solid #D5D5D5;
   box-sizing: border-box;
 }
-.wb .board-container .board-main .float-box .scale .icon {
+.wb .board-container .board-main .float-box .float-main .scale .icon {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   width: 14px;
   height: 14px;
   cursor: pointer;
 }
-.wb .board-container .board-main .float-box .scale .icon.zoom-out {
+.wb .board-container .board-main .float-box .float-main .scale .icon.zoom-out {
   left: 16px;
   background: url(../imgs/缩小.svg) center center / 100% 100%;
 }
-.wb .board-container .board-main .float-box .scale .icon.zoom-in {
+.wb .board-container .board-main .float-box .float-main .scale .icon.zoom-in {
   left: 86px;
   background: url(../imgs/放大.svg) center center / 100% 100%;
 }
-.wb .board-container .board-main .float-box .scale .percent-input {
+.wb .board-container .board-main .float-box .float-main .scale .percent-input {
   display: flex;
   justify-content: center;
   position: absolute;
   left: 33px;
-  top: 50%;
-  transform: translateY(-50%);
   width: 50px;
   height: 20px;
   line-height: 20px;
   text-align: center;
   font-weight: 600;
 }
-.wb .board-container .board-main .float-box .scale .percent-input input {
+.wb .board-container .board-main .float-box .float-main .scale .percent-input input {
   padding: 0;
   width: 22px;
   height: 20px;
@@ -963,47 +1027,43 @@ body {
   background-color: inherit;
   vertical-align: middle;
 }
-.wb .board-container .board-main .float-box .scale .percent-input .percent {
+.wb .board-container .board-main .float-box .float-main .scale .percent-input .percent {
   margin-left: 1px;
   width: auto;
 }
-.wb .board-container .board-main .float-box .page {
+.wb .board-container .board-main .float-box .float-main .page {
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
   left: 114px;
-  top: 50%;
-  transform: translateY(-50%);
   width: 114px;
   height: 20px;
   line-height: 20px;
   font-size: 16px;
 }
-.wb .board-container .board-main .float-box .page .icon {
+.wb .board-container .board-main .float-box .float-main .page .icon {
   display: inline-block;
   width: 16px;
   height: 16px;
   cursor: pointer;
 }
-.wb .board-container .board-main .float-box .page .icon.last-page-btn {
+.wb .board-container .board-main .float-box .float-main .page .icon.last-page-btn {
   background: url(../imgs/箭头-上一页.svg) center center / 16px 16px;
 }
-.wb .board-container .board-main .float-box .page .icon.next-page-btn {
+.wb .board-container .board-main .float-box .float-main .page .icon.next-page-btn {
   background: url(../imgs/箭头-下一页.svg) center center / 16px 16px;
 }
-.wb .board-container .board-main .float-box .page .page-text {
+.wb .board-container .board-main .float-box .float-main .page .page-text {
   display: inline-block;
   margin: 0 10px;
   height: 20px;
   line-height: 21px;
   font-weight: 500;
 }
-.wb .board-container .board-main .float-box .setting {
+.wb .board-container .board-main .float-box .float-main .setting {
   position: absolute;
   left: 238px;
-  top: 50%;
-  transform: translateY(-50%);
   height: 42px;
   width: 48px;
   background: url(../imgs/设置按钮.svg) center center / 32px 32px no-repeat;
@@ -1011,6 +1071,13 @@ body {
   cursor: pointer;
   box-shadow: 0 0 10px #ccc;
   background-color: #fff;
+}
+@media screen and (max-width: 700px) {
+  .wb .board-container .board-main .float-box .float-main .setting {
+    bottom: 0;
+    height: 30px;
+    background-size: 24px 24px;
+  }
 }
 .wb .board-container .board-main .setting-box {
   position: absolute;
@@ -1023,6 +1090,15 @@ body {
   font-size: 15px;
   overflow: hidden;
   user-select: none;
+}
+@media screen and (max-width: 700px) {
+  .wb .board-container .board-main .setting-box {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 40px;
+    z-index: 9;
+  }
 }
 .wb .board-container .board-main .setting-box .title {
   float: left;
@@ -1056,8 +1132,28 @@ body {
   height: 32px;
   line-height: 32px;
 }
-.wb .board-container .board-main .btn-box {
+.wb .board-container .board-main .board-ctrl {
+  display: flex;
+  justify-content: space-around;
   position: absolute;
+  width: 350px;
+  bottom: 40px;
+  right: 50px;
+  opacity: 0.8;
+}
+@media screen and (max-width: 700px) {
+  .wb .board-container .board-main .board-ctrl {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 260px;
+  }
+}
+.wb .board-container .board-main .board-ctrl .btn-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
   height: 50px;
   width: 155px;
   font-size: 18px;
@@ -1067,33 +1163,39 @@ body {
   cursor: pointer;
   user-select: none;
 }
-.wb .board-container .board-main .btn-box .icon {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
+@media screen and (max-width: 700px) {
+  .wb .board-container .board-main .board-ctrl .btn-box {
+    width: 120px;
+    height: 36px;
+    line-height: 40px;
+    font-size: 14px;
+  }
+}
+.wb .board-container .board-main .board-ctrl .btn-box .icon {
   width: 32px;
   height: 32px;
 }
-.wb .board-container .board-main .btn-box .text {
-  margin-left: 56px;
+@media screen and (max-width: 700px) {
+  .wb .board-container .board-main .board-ctrl .btn-box .icon {
+    width: 24px;
+    height: 24px;
+  }
 }
-.wb .board-container .board-main .btn-box.delete-btn-box {
-  right: 240px;
-  bottom: 50px;
+.wb .board-container .board-main .board-ctrl .btn-box .text {
+  margin-left: 4px;
+}
+.wb .board-container .board-main .board-ctrl .btn-box.delete-btn-box {
   color: #333;
   background-color: #dbdbdb;
 }
-.wb .board-container .board-main .btn-box.delete-btn-box .icon {
+.wb .board-container .board-main .board-ctrl .btn-box.delete-btn-box .icon {
   background: url(../imgs/删除.svg) no-repeat center center / 70% 70%;
 }
-.wb .board-container .board-main .btn-box.new-btn-box {
-  right: 60px;
-  bottom: 50px;
+.wb .board-container .board-main .board-ctrl .btn-box.new-btn-box {
   color: #fff;
   background-color: #3981fc;
 }
-.wb .board-container .board-main .btn-box.new-btn-box .icon {
+.wb .board-container .board-main .board-ctrl .btn-box.new-btn-box .icon {
   background: url(../imgs/新建白板.svg) no-repeat center center / 70% 70%;
 }
 [v-cloak] {
@@ -1117,4 +1219,8 @@ body {
   padding-right: 16px;
   height: 36px;
   line-height: 36px;
+}
+.el-message-box {
+  max-width: 420px;
+  width: 100%;
 }
