@@ -167,7 +167,7 @@ var app = new Vue({
       switch (newType) {
         case 1:
           this.toolTypeButtonClass = 'pencil';
-          this.curView.boardView.setCursor(`url(../whiteBoardDemo/imgs/鼠标光标-铅笔.cur),default`);
+          this.curView.boardView && this.curView.boardView.setCursor(`url(../whiteBoardDemo/imgs/鼠标光标-铅笔.cur),default`);
           break;
         case 2:
           this.toolTypeButtonClass = 'straightLine';
@@ -182,16 +182,16 @@ var app = new Vue({
           this.toolTypeButtonClass = 'arrows';
           break;
         case 6:
-          this.curView.boardView.setCursor('text');
+          this.curView.boardView && this.curView.boardView.setCursor('text');
           break;
         case 8:
-          this.curView.boardView.setCursor(`url(../whiteBoardDemo/imgs/鼠标光标-选择.cur),default`);
+          this.curView.boardView && this.curView.boardView.setCursor(`url(../whiteBoardDemo/imgs/鼠标光标-选择.cur),default`);
           break;
         case 9:
-          this.curView.boardView.setCursor(`url(../whiteBoardDemo/imgs/鼠标光标-橡皮擦.cur),default`);
+          this.curView.boardView && this.curView.boardView.setCursor(`url(../whiteBoardDemo/imgs/鼠标光标-橡皮擦.cur),default`);
           break;
         case 10:
-          this.curView.boardView.setCursor(`move`);
+          this.curView.boardView && this.curView.boardView.setCursor(`move`);
           break;
         case 11:
           this.toolTypeButtonClass = 'squareFill';
