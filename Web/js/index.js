@@ -1045,7 +1045,6 @@ var app = new Vue({
               svrPathName: `/${year}-${month}-${day}/${year}-${month}-${day}_${hour}-${minute}-${second}_web_WBoard_${this.roomData.roomID}.mp4`,
               vWidth: 1280,
               vHeight: 720,
-              WBVer: 2,
               layoutConfig: [
                 {
                   left: 0,
