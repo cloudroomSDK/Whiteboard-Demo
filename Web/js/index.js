@@ -247,7 +247,7 @@ var app = new Vue({
     // SDK接口：回调 启动源端录制失败
     CRVideo_CreateCloudMixerFailed.callback = this.CreateCloudMixerFailed;
     // SDK接口：通知 录制输出状态变化
-    CRVideo_CloudMixerOutputInfoChanged.callback = this.CloudMixerOutputInfoChanged;
+    CRVideo_CloudMixerEvent.callback = this.CloudMixerEvent;
 
     // // 会议中关闭页面弹出提示确认
     // window.addEventListener('beforeunload', (e) => {
@@ -391,14 +391,7 @@ var app = new Vue({
         CRVideo_SetServerAddr(this.loginData.server);
         if (this.loginData.authType == '1') {
           // SDK接口：登陆SDK
-          CRVideo_Login(
-            this.loginData.appID,
-            this.loginData.appSecret == '默认' ? this.loginData.appSecret : md5(this.loginData.appSecret),
-            this.loginData.nickname,
-            this.loginData.userID,
-            this.loginData.userAuthCode,
-            cookie
-          );
+          CRVideo_Login(this.loginData.appID, this.loginData.appSecret == '默认' ? this.loginData.appSecret : md5(this.loginData.appSecret), this.loginData.nickname, this.loginData.userID, this.loginData.userAuthCode, cookie);
         } else {
           // SDK接口：登陆SDK（Token鉴权）
           CRVideo_LoginByToken(this.loginData.token, this.loginData.nickname, this.loginData.userID, this.loginData.userAuthCode, cookie);
@@ -1045,6 +1038,7 @@ var app = new Vue({
               svrPathName: `/${year}-${month}-${day}/${year}-${month}-${day}_${hour}-${minute}-${second}_web_WBoard_${this.roomData.roomID}.mp4`,
               vWidth: 1280,
               vHeight: 720,
+              maxFileDuration: 0, //设置成0，录制不切片
               layoutConfig: [
                 {
                   left: 0,
@@ -1115,13 +1109,25 @@ var app = new Vue({
       }
     },
     // 录制输出状态变化
-    CloudMixerOutputInfoChanged(mixerID, outputInfo) {
-      if (outputInfo.state == 6) {
-        this.$message.error(`云端录制文件异常：上传失败！`);
-      } else if (outputInfo.state == 7) {
-        this.$message.success(`云端录制成功！`);
-      } else {
-        // this.$message.info(`录制文件状态：${JSON.stringify(outputInfo)}`);
+    CloudMixerEvent(mixerID, status, jsonState) {
+      switch (status) {
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          this.$message.error(`录制出错！错误码：${jsonState.errCode},${jsonState.errDesc}`);
+          break;
+        case 4:
+          break;
+        case 5:
+          this.$message.success(`录制完成`);
+          break;
+        case 6:
+          this.$message.error(`录制文件上传出错！错误码：${jsonState.errCode},${jsonState.errDesc}`);
+          break;
+        default:
+          break;
       }
     },
   },
